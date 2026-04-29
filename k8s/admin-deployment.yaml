@@ -13,8 +13,11 @@ spec:
       labels:
         app: admin-frontend
     spec:
+      imagePullSecrets:
+        - name: ghcr-secret   
       containers:
-      - name: admin
-        image: 088310115913.dkr.ecr.us-east-1.amazonaws.com/admin-frontend:latest
-        ports:
-        - containerPort: 80
+        - name: admin
+          image: ghcr.io/softwarestacksolutions/admin-frontend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
