@@ -82,6 +82,20 @@ jobs:
           mv customer-package.zip artifact-repo/CustomerUI/CustomerUI-${VERSION}.zip
           cp artifact-repo/CustomerUI/CustomerUI-${VERSION}.zip artifact-repo/CustomerUI/CustomerUI-latest.zip
 
+      # 🔥 NEW: Cleanup old artifacts (keep last 6)
+      - name: Cleanup old artifacts (keep last 6)
+        if: steps.hash.outputs.no_change == 'false'
+        run: |
+          cd artifact-repo/CustomerUI
+
+          echo "Before cleanup:"
+          ls -1 CustomerUI-v*.zip || true
+
+          ls -1 CustomerUI-v*.zip 2>/dev/null | sort -V | head -n -6 | xargs -r rm -f
+
+          echo "After cleanup:"
+          ls -1 CustomerUI-v*.zip || true
+
       - name: Commit & Push
         if: steps.hash.outputs.no_change == 'false'
         run: |
@@ -113,14 +127,14 @@ jobs:
         run: |
           cp artifact-repo/CustomerUI/CustomerUI-latest.zip ./artifact.zip
 
-      # ✅ FIXED: Clean extraction
+      # ✅ Clean extract
       - name: Extract artifact
         run: |
           rm -rf app
           mkdir app
           unzip artifact.zip -d app
 
-      # 🔍 Debug (optional but useful)
+      # 🔍 Debug (safe to keep)
       - name: Debug structure
         run: |
           ls -la app
@@ -132,7 +146,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.MY_GITHUB_TOKEN }}
 
-      # ✅ FIXED: Dockerfile now found correctly
+      # ✅ Build (Dockerfile now correctly found)
       - name: Build Docker image
         run: |
           docker build -t customer-frontend:latest ./app
