@@ -126,7 +126,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t customer-frontend:latest ./app
+          docker build -t customer-frontend:latest ./app/CustomerUI
 
       - name: Tag image
         run: |
