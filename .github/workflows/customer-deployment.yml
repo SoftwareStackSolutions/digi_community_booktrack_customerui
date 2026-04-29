@@ -110,9 +110,8 @@ jobs:
 
       - name: Copy latest artifact
         run: |
-          docker build -t customer-frontend:latest ./app/tracking_customer
-
-
+          cp artifact-repo/CustomerUI/CustomerUI-latest.zip ./artifact.zip
+          
       - name: Extract artifact
         run: |
           mkdir app
