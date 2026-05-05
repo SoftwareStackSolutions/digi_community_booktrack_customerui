@@ -20,4 +20,4 @@ spec:
           image: ghcr.io/softwarestacksolutions/customer-frontend:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 80
+            - containerPort: 5174
