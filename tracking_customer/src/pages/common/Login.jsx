@@ -36,9 +36,9 @@ const Login = () => {
         dispatch(clearLoginState());
         localStorage.removeItem("token");
         localStorage.removeItem("currentUser");
-        setFormMessage("Redirecting to Admin application...");
+        setFormMessage("Redirecting to Admin login...");
         setTimeout(() => {
-          window.location.href = "http://admin.softwarestack.xyz/";
+          window.location.href = "http://admin.softwarestack.xyz/login";
         }, 1000);
         return;
       }
